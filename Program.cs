@@ -1,18 +1,31 @@
 ﻿using System.Diagnostics;
 
+ApplicationRegistry registry = new ApplicationRegistry();
 while (true)
 {
     Console.Write("Введите команду: ");
     string? command = Console.ReadLine()?.ToLower();
-    if (command == "открой steam")
+    if (command != null && command.StartsWith("открой "))
     {
-        Process.Start("C:\\Program Files (x86)\\Steam\\steam.exe");
-        Console.WriteLine("Steam открыт!");
-    }
-    else if (command == "открой zen")
-    {
-        Process.Start("C:\\Program Files\\Zen Browser\\zen.exe");
-        Console.WriteLine("Zen Browser открыт!");
+        command = command.Substring("открой ".Length).Trim();
+        ApplicationInfo? applicationInfo = registry.GetApplication(command);
+        if (applicationInfo != null)
+        {
+            if (applicationInfo.Arguments == null)
+            {
+                Process.Start(applicationInfo.Path);
+                Console.WriteLine($"Запускаю приложение: {command}...");
+            }
+            else
+            {
+                Process.Start(applicationInfo.Path, applicationInfo.Arguments);
+                Console.WriteLine($"Запускаю приложение: {command}...");
+            }
+        }
+        else
+        {
+            Console.WriteLine($"Приложение {command} не найдено");
+        }
     }
     else if (command == "выход")
     {
