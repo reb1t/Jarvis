@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 
 ApplicationRegistry registry = new ApplicationRegistry();
 while (true)
@@ -11,15 +12,22 @@ while (true)
         ApplicationInfo? applicationInfo = registry.GetApplication(command);
         if (applicationInfo != null)
         {
-            if (applicationInfo.Arguments == null)
+            try
             {
-                Process.Start(applicationInfo.Path);
-                Console.WriteLine($"Запускаю приложение: {command}...");
+                if (applicationInfo.Arguments == null)
+                {
+                    Process.Start(applicationInfo.Path);
+                    Console.WriteLine($"Запускаю приложение: {command}...");
+                }
+                else
+                {
+                    Process.Start(applicationInfo.Path, applicationInfo.Arguments);
+                    Console.WriteLine($"Запускаю приложение: {command}...");
+                }
             }
-            else
+            catch (Win32Exception)
             {
-                Process.Start(applicationInfo.Path, applicationInfo.Arguments);
-                Console.WriteLine($"Запускаю приложение: {command}...");
+                Console.WriteLine($"Ошибка при запуске приложения {command}");
             }
         }
         else
