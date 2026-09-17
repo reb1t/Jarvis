@@ -1,0 +1,18 @@
+{
+  "steam": {
+    "Path": "C:\\Program Files (x86)\\Steam\\steam.exe",
+    "Arguments": null
+  },
+  "zen": {
+    "Path": "C:\\Program Files\\Zen Browser\\zen.exe",
+    "Arguments": null
+  },
+  "discord": {
+    "Path": "C:\\Users\\reb1t\\AppData\\Local\\Discord\\Update.exe",
+    "Arguments": "--processStart Discord.exe"
+  },
+  "telegram": {
+    "Path": "C:\\Users\\reb1t\\AppData\\Roaming\\Telegram Desktop\\Telegram.exe",
+    "Arguments": null
+  }
+}
